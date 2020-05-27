@@ -18,9 +18,9 @@
 # =======
 
 ## Hadoop installation
-export HADOOP_HOME="${HADOOP_HOME:-/path/to/hadoop}"
+export HADOOP_HOME="${HADOOP_HOME:-/home/mark/dev/fluo-uno/install/hadoop-3.2.1}"
 ## Accumulo installation
-export ACCUMULO_HOME="${ACCUMULO_HOME:-/path/to/accumulo}"
+export ACCUMULO_HOME="${ACCUMULO_HOME:-/home/mark/dev/fluo-uno/install/accumulo-2.1.0-SNAPSHOT}"
 ## Path to Accumulo client properties
 export ACCUMULO_CLIENT_PROPS="$ACCUMULO_HOME/conf/accumulo-client.properties"
 
