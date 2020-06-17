@@ -38,7 +38,5 @@ class CloudStone1(Benchmark):
         "We want to override this method but no speed can be set"
 
 def suite():
-    result = unittest.TestSuite([
-        CloudStone1(),
-        ])
+    result = unittest.TestSuite([CloudStone1(),])
     return result

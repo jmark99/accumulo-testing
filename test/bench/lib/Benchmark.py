@@ -20,9 +20,9 @@ import os
 import glob
 import sys
 
-from options import log
+from .options import log
 
-from path import accumulo
+from .path import accumulo
 
 class Benchmark(unittest.TestCase):
     
@@ -57,7 +57,7 @@ class Benchmark(unittest.TestCase):
 
     # Each class that extends Benchmark should overwrite this
     def setSpeed(self, speed):
-        print "Classes that extend Benchmark need to override setSpeed."
+        print( "Classes that extend Benchmark need to override setSpeed.")
         
 
     def setUsername(self, user):

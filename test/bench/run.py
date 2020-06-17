@@ -15,7 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import getopt
 import os
 import sys
@@ -24,6 +23,7 @@ import unittest
 
 from lib.options import options, args, log
 from lib.Benchmark import Benchmark
+import functools
 
 def getBenchmarks():
     import glob
@@ -45,27 +45,28 @@ def benchComparator(first, second):
         return -1
     elif (second.name() < first.name()):
         return 1
-    else:  
+    else:
         return 0
 
 def main():
     if not os.getenv('HADOOP_HOME'):
-        print 'Please set the environment variable \'HADOOP_HOME\' before running the benchmarks'
+        print('Please set the environment variable \'HADOOP_HOME\' before running the benchmarks')
         sys.exit(0)
     if not os.getenv('ZOOKEEPER_HOME'):
-        print 'Please set the environment variable \'ZOOKEEPER_HOME\' before running the benchmarks'
+        print('Please set the environment variable \'ZOOKEEPER_HOME\' before running the ' \
+               'benchmarks')
         sys.exit(0)
     if not os.getenv('ACCUMULO_HOME'):
-        print 'Please set the environment variable \'ACCUMULO_HOME\' before running the benchmarks'
+        print('Please set the environment variable \'ACCUMULO_HOME\' before running the benchmarks')
         sys.exit(0)
     import textwrap
     benchmarks = getBenchmarks()
-    benchmarks.sort(benchComparator)
+    benchmarks.sort(key=functools.cmp_to_key(benchComparator))
     auth = 0
     for b in benchmarks:
         b.setSpeed(options.runSpeed)
-        if auth == 0 and b.needsAuthentication > 0:
-            auth = 1 
+        if auth == 0 and b.needsAuthentication() > 0:
+            auth = 1
     if options.list:
         indent = len(benchmarks[0].name())
         wrap = 78 - indent
@@ -74,13 +75,13 @@ def main():
             desc = b.shortDescription() or "No description"
             desc = textwrap.wrap(desc, wrap)
             desc = '\n'.join([(prefix + line) for line in desc])
-            print '%*s: %s' % (indent, b.name(), desc.lstrip())
-        sys.exit(0)                      
+            print('%*s: %s' % (indent, b.name(), desc.lstrip()))
+        sys.exit(0)
     logging.basicConfig(level=options.logLevel)
     if auth == 1:
         if options.user == '':
-            print 'User: ',
-            user = sys.stdin.readline().strip()
+            print('User: ', end = "")
+            user = input().strip()
         else:
             user = options.user
         if options.password == '':
@@ -89,28 +90,28 @@ def main():
         else:
             password = options.password
         if options.zookeepers == '':
-            print 'Zookeepers: ',
-            zookeepers = sys.stdin.readline().strip()    
+            print('Zookeepers: ', end=' ')
+            # zookeepers = sys.stdin.readline().strip()
+            zookeepers = input().strip()
         else:
             zookeepers = options.zookeepers
         if options.instance == '':
-            print 'Instance: ',
-            instance = sys.stdin.readline().strip()    
+            print('Instance: ', end="")
+            instance = input().strip()
         else:
             instance = options.instance
         Benchmark.instance = instance
         Benchmark.zookeepers = zookeepers
         Benchmark.instance = instance
         Benchmark.password = password
-        Benchmark.username = user   
+        Benchmark.username = user
     if args:
-        benchmarks = [
-            b for b in benchmarks if b.name() in args
-            ]
+        benchmarks = [b for b in benchmarks if b.name() in args]
+        print(benchmarks)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(unittest.TestSuite(benchmarks))
-    for b in benchmarks:
-        log.info("%30s: %5.2f", b.name(), b.score())
+    # for b in benchmarks:
+    #     log.info("%30s: %5.2f", b.name(), b.score())
 
 if __name__ == '__main__':
     main()
