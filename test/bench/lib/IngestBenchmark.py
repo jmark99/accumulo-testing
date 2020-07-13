@@ -30,7 +30,8 @@ class IngestBenchmark(Benchmark):
 
     def setUp(self):
         code, out, err = cloudshell.run(self.username, self.password, 'table test_ingest\n')
-        if out.find('does not exist') == -1:
+        print(f"out: {out}")
+        if out.find('does not exist'.encode("utf-8")) == -1:
             log.debug("Deleting table test_ingest")
             code, out, err = cloudshell.run(self.username, self.password, 'deletetable test_ingest -f\n')
             self.assertEquals(code, 0, "Could not delete the table 'test_ingest'")

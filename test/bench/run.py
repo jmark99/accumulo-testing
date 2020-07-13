@@ -38,6 +38,7 @@ def getBenchmarks():
         moduleName = moduleName.lstrip('.')[:-3]
         module = __import__(moduleName, globals(), locals(), [moduleName])
         result.extend(list(module.suite()))
+    print(f"RESULT: {result}")
     return result
     
 def benchComparator(first, second):
@@ -110,8 +111,8 @@ def main():
         print(benchmarks)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(unittest.TestSuite(benchmarks))
-    # for b in benchmarks:
-    #     log.info("%30s: %5.2f", b.name(), b.score())
+    for b in benchmarks:
+        log.info("%30s: %5.2f", b.name(), b.score())
 
 if __name__ == '__main__':
     main()

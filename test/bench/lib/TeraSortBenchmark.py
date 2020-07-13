@@ -43,7 +43,7 @@ class TeraSortBenchmark(Benchmark):
 
     def setUp(self): 
         code, out, err = cloudshell.run(self.username, self.password, 'table %s\n' % self.tablename)
-        if out.find('does not exist') == -1:
+        if out.find('does not exist'.encode("utf-8")) == -1:
             log.debug('Deleting table %s' % self.tablename)
             code, out, err = cloudshell.run(self.username, self.password, 'deletetable -f %s\n' % self.tablename)
         Benchmark.setUp(self)

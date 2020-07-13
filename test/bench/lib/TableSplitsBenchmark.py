@@ -37,7 +37,7 @@ class TableSplitsBenchmark(Benchmark):
     def setUp(self): 
         # Need to generate a splits file for each speed
         code, out, err = cloudshell.run(self.username, self.password, 'table %s\n' % self.tablename)
-        if out.find('does not exist') == -1:
+        if out.find('does not exist'.encode("utf-8")) == -1:
             log.debug('Deleting table %s' % self.tablename)
             code, out, err = cloudshell.run(self.username, self.password, 'deletetable %s -f\n' % self.tablename)
             self.assertEqual(code, 0, "Could not delete table")

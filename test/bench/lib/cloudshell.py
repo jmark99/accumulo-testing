@@ -26,8 +26,9 @@ def run(username, password, input):
     handle = runner.start([path.accumulo('bin', 'accumulo'), 'shell', '-u', username, '-p', password],
                           stdin=subprocess.PIPE)
     log.debug("Running: %r", input)
-    out, err = handle.communicate(input)
+    out, err = handle.communicate(input.encode("utf-8"))
     log.debug("Process finished: %d (%s)",
               handle.returncode,
               ' '.join(handle.command))
     return handle.returncode, out, err
+    # return 1,2,3

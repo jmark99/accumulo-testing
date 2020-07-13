@@ -45,12 +45,12 @@ class RowHashBenchmark(Benchmark):
         dir = os.path.dirname(os.path.realpath(__file__))
         file = os.path.join( dir, 'splits' )  
         code, out, err = cloudshell.run(self.username, self.password, 'table %s\n' % self.input_table) 
-        if out.find('does not exist') == -1:
+        if out.find('does not exist'.encode("utf-8")) == -1:
            code, out, err = cloudshell.run(self.username, self.password, 'deletetable -f %s\n' % self.input_table) 
            self.sleep(15)
         code, out, err = cloudshell.run(self.username, self.password, "createtable %s -sf %s\n" % (self.input_table, file))
         code, out, err = cloudshell.run(self.username, self.password, 'table %s\n' % self.output_table) 
-        if out.find('does not exist') == -1:
+        if out.find('does not exist'.encode("utf-8")) == -1:
             code, out, err = cloudshell.run(self.username, self.password, 'deletetable -f %s\n' %
                     self.output_table) 
             self.sleep(15)
