@@ -1,0 +1,21 @@
+accumulo_instance_name = "accumulo-testing"
+accumulo_branch_name = "tfwrk"
+accumulo_repo = "https://github.com/jmark99/accumulo.git"
+accumulo_testing_branch_name = "tennodes"
+accumulo_testing_repo = "https://github.com/jmark99/accumulo-testing.git"
+accumulo_version = "2.1.0-SNAPSHOT"
+ami_name_pattern = "ahs-centos7-dev-base"
+ami_owner = "416155474025"
+authorized_ssh_key_files = [ "~/.ssh/id_rsa.pub" ]
+authorized_ssh_keys = [
+"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCux5ef8U6BP1RwZmKNhR62zLJ7DoRbGPRdthseIEb6i3Ja58aQSaQ8rn+NKdWlQjY4yM88urzLGTlwCCkQEnu77A56suQYOEzfZATO0q+vvPaT0T6WtVdEP8YnjP0nL4pRuZp5biEjpCHOuG0fZNFbB0pZ3CeDt+QzC/EDeZc049CBiIzH43wBpT0w9yqGgIJobb43VUGnHUKgsdg3ClMHAqdb0ntiZFI9IZC/Swf7cXs7G258qXD5jxIJxblTwvjEkUVQE1LdQ8ufDdp8Ooo32UhdtAYpF6mEG9aXBz8MeZmXXEFLr4LGMbpblXodVzaqxcQvary64Kmd/H4Wovhv jmowens@ip-10-113-10-64.evoforge.org"
+]
+instance_count = "10"
+instance_type = "t2.xlarge"
+private_network = "true"
+accumulo_root_password = "secret"
+security_group = "sg-f6133f8c"
+route53_zone = "some.domain.name"
+us_east_1b_subnet = "subnet-b1884cea"
+us_east_1e_subnet = "subnet-b1884cea"
+
